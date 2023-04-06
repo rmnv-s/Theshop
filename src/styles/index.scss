@@ -1,4 +1,5 @@
 @use 'helpers/color' as *;
+@use 'helpers/mixins' as *;
 
 @import url(../vendor/normalize.scss);
 @import url(../vendor/fonts.scss);
@@ -17,4 +18,85 @@ html {
   font-family: 'Inter', Arial, sans-serif;
   background-color: $bg-page;
   color: $main-text-color;
+}
+
+.page {
+  /* max-width: 129rem; */
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.header {
+  &__heading {
+    @include main-font;
+    letter-spacing: 0.2rem;
+
+    margin: 3rem 0 5rem 0;
+  }
+}
+
+.cart {
+  border-top: 0.1rem solid #efefef;
+  border-bottom: 0.1rem solid #efefef;
+  padding: 1.2rem 0;
+  cursor: pointer;
+  /*  overflow: hidden; */
+}
+
+.cart-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__heading {
+    @include main-font;
+  }
+
+  &__close {
+    @include main-font;
+
+    color: #ffe600;
+    cursor: pointer;
+    /* display: none; */
+  }
+
+  &__count {
+    @include main-font;
+  }
+}
+
+.button {
+  border: none;
+  background-color: transparent;
+}
+
+.content {
+  height: 0;
+  overflow: hidden;
+
+  &__opened {
+    animation: slide 0.5s ease forwards;
+    height: auto;
+  }
+  &__close {
+    animation: slide-close 0.5s ease forwards;
+    height: 0;
+  }
+}
+
+@keyframes slide {
+  from {
+    height: 0;
+  }
+  to {
+    height: 500px;
+  }
+}
+
+@keyframes slide-close {
+  from {
+    height: 500px;
+  }
+  to {
+    height: 0;
+  }
 }
