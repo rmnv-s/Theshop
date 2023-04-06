@@ -26,6 +26,10 @@ html {
   margin: 0 auto;
 }
 
+.main {
+  position: relative;
+}
+
 .header {
   &__heading {
     @include main-font;
@@ -40,6 +44,7 @@ html {
   border-bottom: 0.1rem solid #efefef;
   padding: 1.2rem 0;
   cursor: pointer;
+  position: relative;
   /*  overflow: hidden; */
 }
 
@@ -56,7 +61,6 @@ html {
 
     color: #ffe600;
     cursor: pointer;
-    /* display: none; */
   }
 
   &__count {
@@ -72,6 +76,12 @@ html {
 .content {
   height: 0;
   overflow: hidden;
+  background-color: #202020;
+
+  p {
+    color: red;
+    padding: 30px 0;
+  }
 
   &__opened {
     animation: slide 0.5s ease forwards;
@@ -98,5 +108,51 @@ html {
   }
   to {
     height: 0;
+  }
+}
+
+/* CARD */
+
+.cards {
+  position: absolute;
+  margin-top: 2rem;
+  top: 80px;
+  z-index: -1;
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 37rem;
+
+    &__img {
+    }
+
+    &__heding {
+      position: absolute;
+      @include cart-font;
+      font-weight: 400;
+      text-transform: uppercase;
+      color: #000;
+      top: 2rem;
+      left: 3rem;
+    }
+
+    &__price {
+      position: absolute;
+      color: #000;
+      left: 3rem;
+      bottom: 6.5rem;
+    }
+
+    &__btn {
+      padding: 1.4rem 0;
+      text-transform: uppercase;
+      background-color: #d9d9d9;
+      color: #202020;
+      @include cart-font;
+      font-weight: 900;
+      cursor: pointer;
+    }
   }
 }
