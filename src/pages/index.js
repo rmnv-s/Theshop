@@ -1,5 +1,5 @@
 import '../styles/index.scss';
-import { cardData } from '../utils/constants.js';
+import { cardData, cards } from '../utils/constants.js';
 
 const cartInfo = document.querySelector('.cart-info');
 const content = document.querySelector('.content');
@@ -15,4 +15,25 @@ close.addEventListener('click', () => {
   content.classList.add('content__close');
 });
 
-console.log(cardData[0].img);
+function getCard(item) {
+  const cardTemplate = document.querySelector('.card-template').content;
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+
+  cardElement.querySelector('.card__heding').textContent = item.name;
+
+  const cardPhoto = cardElement.querySelector('.card__img');
+  cardPhoto.src = item.link;
+  cardPhoto.alt = item.name;
+  return cardElement;
+}
+
+// функция добавления карточку на страницу
+function addCard(item, container) {
+  const newCard = getCard(item);
+  container.append(newCard);
+}
+
+// Карточки из коробки
+cardData.forEach(function (item) {
+  addCard(item, cards);
+});
