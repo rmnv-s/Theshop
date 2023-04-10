@@ -27,10 +27,8 @@ function getCard(item) {
 
 	const cardBtn = cardElement.querySelector('.card__btn');
 	cardBtn.addEventListener('click', () => {
-		console.log('click btn', item.name);
 		cartCount.textContent++;
-		cardBtn.disabled = true;
-		cardBtn.textContent = 'product in cart';
+		handleCardBtnAdd(cardBtn);
 		cardProduct.append(cardToBasket(item));
 	});
 
@@ -42,14 +40,12 @@ function addCard(item, container) {
 	const newCard = getCard(item);
 	container.append(newCard);
 }
-
 // Карточки из коробки
 cardData.forEach(function(item) {
 	addCard(item, cards);
 });
 
-console.log(cartCount.textContent);
-
+let arr = [];
 function cardToBasket(item) {
 	const cardTemplateBasket = document.querySelector('.product-template').content;
 	const cardElementBasket = cardTemplateBasket.querySelector('.product').cloneNode(true);
@@ -58,9 +54,26 @@ function cardToBasket(item) {
 	cardElementBasket.querySelector('.card-product__price').textContent = `$ ${item.price}.00`;
 
 	const cardRemove = cardElementBasket.querySelector('.card-remove');
-	cardRemove.addEventListener('click', () => {
-		console.log(`card removed: ${item.name}`);
+	cardRemove.addEventListener('click', evt => {
+		evt.target.closest('.product').remove();
+		arr.forEach((el, i) => {
+			if (el.id === item.id) arr.splice(i, 1);
+		});
+		console.log(arr);
 	});
 
+	if (arr.find(i => i.id === item.id)) {
+		alert('product added');
+	} else {
+		arr.push(item);
+		console.log(arr);
+	}
+
+	// arr.push(cardElementBasket);
 	return cardElementBasket;
+}
+
+function handleCardBtnAdd(item) {
+	item.disabled = true;
+	item.textContent = 'product in cart';
 }
