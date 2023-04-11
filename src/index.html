@@ -1,62 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>The shop</title>
-	</head>
 
-	<body class="root">
-		<div class="page">
-			<header class="header">
-				<h1 class="header__heading">The shop</h1>
-			</header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The shop</title>
+</head>
 
-			<main class="main">
-				<button class="button cart-info__close">Close</button>
-				<div class="cart">
-					<div class="cart-info">
-						<p class="cart-info__heading">Cart</p>
-						<span class="cart-info__count">0</span>
-					</div>
-				</div>
-				<div class="cart-inner">
-					<div class="card-product">
-						<p class="total">Total: <span class="total-count">0</span></p>
-					</div>
-				</div>
-				<section class="cards"></section>
+<body class="root">
+  <div class="page">
+    <header class="header">
+      <h1 class="header__heading">The shop</h1>
+    </header>
 
-				<template class="product-template">
-					<div class="product">
-						<div class="product__info">
-							<h2 class="card-product__heding"></h2>
-							<p class="card-product__price"></p>
-						</div>
-						<fieldset class="quantity">
-							<div class="quantity__count">
-								<button class="quantity__count-minus quantity__count-btn">
-									Decrease quantity
-								</button>
-								<input type="text" class="quantity__count-number quantity__count-btn" name="quantity" pattern="[0-9]*" placeholder="1" />
-								<button class="quantity__count-plus quantity__count-btn">
-									Increase quantity
-								</button>
-							</div>
-						</fieldset>
-						<button class="button card-remove"></button>
-					</div>
-				</template>
+    <main class="main">
+      <button class="button cart-info__close">Close</button>
+      <div class="cart">
+        <div class="cart-info">
+          <p class="cart-info__heading">Cart</p>
+          <span class="cart-info__count">0</span>
+        </div>
+      </div>
+      <div class="cart-inner">
+        <div class="card-product">
+          <p class="total">Total: <span class="total-count">0</span></p>
+        </div>
+      </div>
+      <section class="cards"></section>
 
-				<template class="card-template">
-					<div class="card">
-						<h2 class="card__heding"></h2>
-						<p class="card__price"></p>
-						<img src="#" alt="#" class="card__img" />
-						<button class="button card__btn">Add to cart</button>
-					</div>
-				</template>
-			</main>
-		</div>
-	</body>
+      <template class="product-template">
+        <div class="product">
+          <div class="product__info">
+            <h2 class="card-product__heding"></h2>
+            <p class="card-product__price"></p>
+          </div>
+          <fieldset class="quantity">
+            <div class="quantity__count">
+              <button class="quantity__count-minus quantity__count-btn">
+                Decrease quantity
+              </button>
+              <input type="text" class="quantity__count-number quantity__count-btn" name="quantity" pattern="[0-9]*" placeholder="1">
+              <button class="quantity__count-plus quantity__count-btn">
+                Increase quantity
+              </button>
+            </div>
+          </fieldset>
+          <button class="button card-remove"></button>
+        </div>
+      </template>
+
+      <template class="card-template">
+        <div class="card">
+          <h2 class="card__heding"></h2>
+          <p class="card__price"></p>
+          <img src="#" alt="#" class="card__img">
+          <button class="button card__btn" data-id="${item.id}"> Add to cart </button>
+        </div>
+      </template>
+    </main>
+  </div>
+</body>
+
 </html>
