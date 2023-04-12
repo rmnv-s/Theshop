@@ -153,7 +153,7 @@ html {
   margin-top: 2rem;
   top: 8rem;
 
-  max-height: 45rem;
+  max-height: 44rem;
   overflow-x: hidden;
 
   &::-webkit-scrollbar {
@@ -235,11 +235,16 @@ html {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+  position: relative;
 }
 
 .quantity {
   /* margin-bottom: 4rem; */
   border: none;
+  left: 50%;
+  position: absolute;
+  top: -0.5rem;
+  transform: translateX(-50%);
 }
 .quantity__count {
   border: 1px solid #ccc;
