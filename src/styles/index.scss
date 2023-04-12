@@ -29,9 +29,22 @@ html {
 
 .main {
   position: relative;
+  flex: 1;
 }
 
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__link {
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+    &:hover {
+      color: rgba(212, 255, 0, 1);
+    }
+  }
   &__heading {
     @include main-font;
     letter-spacing: 0.2rem;
@@ -74,8 +87,8 @@ html {
 }
 
 .cart-inner {
-  /*  height: 0;
-  overflow: hidden; */
+  height: 0;
+  overflow: hidden;
   background-color: #202020;
 
   p {
@@ -142,8 +155,6 @@ html {
 
   z-index: -1;
 
-  outline: 1px solid tomato;
-
   .card {
     position: relative;
     display: flex;
@@ -178,6 +189,11 @@ html {
       @include cart-font;
       font-weight: 900;
       cursor: pointer;
+      transition: all ease-in 0.3s;
+
+      &:hover {
+        background-color: rgba(212, 255, 0, 1);
+      }
     }
   }
 }
@@ -315,4 +331,11 @@ html {
 .popup__text {
   margin-top: 1rem;
   font-size: 1.6rem;
+}
+
+.footer {
+  position: absolute;
+  bottom: 2rem;
+  font-size: 18px;
+  font-weight: 500;
 }
