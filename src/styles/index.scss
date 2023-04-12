@@ -58,6 +58,7 @@ html {
   border-bottom: 0.1rem solid #efefef;
   padding: 1.2rem 0;
   cursor: pointer;
+  position: relative;
   /*  overflow: hidden; */
 }
 
@@ -74,13 +75,22 @@ html {
 
     color: #ffe600;
     cursor: pointer;
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    z-index: 3;
+    display: none;
   }
 
   &__count {
     @include main-font;
   }
 }
-
+.clossed {
+  display: flex;
+}
 .button {
   border: none;
   background-color: transparent;

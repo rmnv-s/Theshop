@@ -13,15 +13,18 @@ const popupTex = document.querySelector('.popup__text');
 const cartInfo = document.querySelector('.cart-info');
 const cartInner = document.querySelector('.cart-inner');
 const close = document.querySelector('.cart-info__close');
+// const clossedBasket = document.querySelector('.clossed')
 
 cartInfo.addEventListener('click', () => {
   cartInner.classList.add('cart-inner__opened');
   cartInner.classList.remove('cart-inner__close');
+  close.classList.add('clossed');
 });
 
 close.addEventListener('click', () => {
   cartInner.classList.remove('cart-inner__opened');
   cartInner.classList.add('cart-inner__close');
+  close.classList.remove('clossed');
 });
 
 function openPopup(item, name) {
