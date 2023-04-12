@@ -1,6 +1,15 @@
 import '../styles/index.scss';
-import { cardData, cards, cartCount, cardProduct } from '../utils/constants.js';
-
+import {
+  cardData,
+  cards,
+  cartCount,
+  cardProduct,
+  totalCount,
+  quantityСount,
+} from '../utils/constants.js';
+const popup = document.querySelector('.popup');
+const closePopupBtn = document.querySelector('.button__close-popup');
+const popupTex = document.querySelector('.popup__text');
 const cartInfo = document.querySelector('.cart-info');
 const cartInner = document.querySelector('.cart-inner');
 const close = document.querySelector('.cart-info__close');
@@ -15,24 +24,43 @@ close.addEventListener('click', () => {
   cartInner.classList.add('cart-inner__close');
 });
 
+function openPopup(item, name) {
+  item.classList.add('popup__opened');
+  popupTex.textContent = `Товар ${name} уже в корзине!`;
+}
+
+function closePopup(item) {
+  item.classList.remove('popup__opened');
+}
+closePopupBtn.addEventListener('click', () => {
+  closePopup(popup);
+});
+let arr = [];
+
 function getCard(item) {
   const cardTemplate = document.querySelector('.card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
   cardElement.querySelector('.card__heding').textContent = item.name;
   cardElement.querySelector('.card__price').textContent = `$ ${item.price}.00`;
+
   const cardPhoto = cardElement.querySelector('.card__img');
   cardPhoto.src = item.link;
   cardPhoto.alt = item.name;
 
   const cardBtn = cardElement.querySelector('.card__btn');
-  cardBtn.addEventListener('click', () => {
-    cartCount.textContent++;
-
-    handleCardBtnAdd(cardBtn);
-    cardProduct.append(cardToBasket(item));
+  cardBtn.addEventListener('click', (evt) => {
+    if (arr.some((i) => i.id === item.id)) {
+      console.log('уже там');
+      openPopup(popup, item.name);
+    } else {
+      cartCount.textContent++;
+      cardProduct.append(cardToBasket(item));
+      // handleCardBtnAdd(cardBtn);
+    }
   });
 
+  // console.log(item.id);
   return cardElement;
 }
 
@@ -46,7 +74,6 @@ cardData.forEach(function (item) {
   addCard(item, cards);
 });
 
-let arr = [];
 function cardToBasket(item) {
   const cardTemplateBasket = document.querySelector('.product-template').content;
   const cardElementBasket = cardTemplateBasket.querySelector('.product').cloneNode(true);
@@ -58,14 +85,20 @@ function cardToBasket(item) {
   cardRemove.addEventListener('click', (evt) => {
     evt.target.closest('.product').remove();
     arr.forEach((el, i) => {
-      if (el.id === item.id) arr.splice(i, 1);
+      if (el.id === item.id) {
+        arr.splice(i, 1);
+      }
     });
     cartCount.textContent--;
-
-    const cardBtn = document.querySelector('.card__btn');
-    handleCardBtnRemove(cardBtn);
+    updateTotalPrice(arr, totalCount);
+    console.log(arr);
   });
+
   arr.push(item);
+  const totalPrice = calculateTotalPrice(arr);
+
+  totalCount.textContent = totalPrice;
+
   return cardElementBasket;
 }
 
@@ -77,6 +110,18 @@ function handleCardBtnAdd(item) {
 
 function handleCardBtnRemove(item) {
   item.disabled = false;
-  item.textContent = 'add to cart';
   item.style.cursor = 'pointer';
+}
+
+function calculateTotalPrice(products) {
+  return products.map((product) => product.price).reduce((sum, price) => sum + price, 0);
+}
+
+function updateTotalPrice(items, totalCount) {
+  let arrPrice = items
+    .map((i) => i.price)
+    .reduce((a, b) => {
+      return a + b;
+    }, 0);
+  totalCount.textContent = arrPrice;
 }
