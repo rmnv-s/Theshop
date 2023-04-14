@@ -76,7 +76,7 @@ html {
     color: #ffe600;
     cursor: pointer;
     position: absolute;
-    top: 1.5rem;
+    padding: 1.4rem;
     left: 50%;
     transform: translateX(-50%);
 
@@ -269,6 +269,7 @@ html {
   padding: 0;
   border-left: 1px solid #cccccc;
   border-right: 1px solid #cccccc;
+  color: rgba(212, 255, 0, 1);
 }
 
 .quantity__count-plus {

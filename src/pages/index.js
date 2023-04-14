@@ -9,13 +9,13 @@ import {
 } from '../utils/constants.js';
 const popup = document.querySelector('.popup');
 const closePopupBtn = document.querySelector('.button__close-popup');
-const popupTex = document.querySelector('.popup__text');
-const cartInfo = document.querySelector('.cart-info');
+const popupText = document.querySelector('.popup__text');
+const cart = document.querySelector('.cart');
 const cartInner = document.querySelector('.cart-inner');
 const close = document.querySelector('.cart-info__close');
 // const clossedBasket = document.querySelector('.clossed')
 
-cartInfo.addEventListener('click', () => {
+cart.addEventListener('click', () => {
   cartInner.classList.add('cart-inner__opened');
   cartInner.classList.remove('cart-inner__close');
   close.classList.add('clossed');
@@ -29,7 +29,7 @@ close.addEventListener('click', () => {
 
 function openPopup(item, name) {
   item.classList.add('popup__opened');
-  popupTex.textContent = `Товар ${name} уже в корзине!`;
+  popupText.textContent = `Товар ${name} уже в корзине!`;
 }
 
 function closePopup(item) {
@@ -52,29 +52,27 @@ function getCard(item) {
   cardPhoto.alt = item.name;
 
   const cardBtn = cardElement.querySelector('.card__btn');
-  cardBtn.addEventListener('click', (evt) => {
+  cardBtn.addEventListener('click', () => {
     if (arr.some((i) => i.id === item.id)) {
       console.log('уже там');
       openPopup(popup, item.name);
     } else {
       cartCount.textContent++;
       cardProduct.append(cardToBasket(item));
-      // handleCardBtnAdd(cardBtn);
     }
   });
 
-  // console.log(item.id);
   return cardElement;
 }
 
 // функция добавления карточку на страницу
-function addCard(item, container) {
+function renderCards(item, container) {
   const newCard = getCard(item);
   container.append(newCard);
 }
 // Карточки из коробки
-cardData.forEach(function (item) {
-  addCard(item, cards);
+cardData.forEach((item) => {
+  renderCards(item, cards);
 });
 
 function cardToBasket(item) {
@@ -83,6 +81,23 @@ function cardToBasket(item) {
 
   cardElementBasket.querySelector('.card-product__heding').textContent = item.name;
   cardElementBasket.querySelector('.card-product__price').textContent = `$ ${item.price}.00`;
+
+  const quantityСount = cardElementBasket.querySelector('.quantity__count-number');
+
+  const quantityPlus = cardElementBasket.querySelector('.quantity__count-plus');
+  const quantityMinus = cardElementBasket.querySelector('.quantity__count-minus');
+  quantityPlus.addEventListener('click', () => {
+    let currentValue = parseInt(quantityСount.value);
+    currentValue += 1;
+    quantityСount.value = currentValue;
+  });
+  quantityMinus.addEventListener('click', () => {
+    let currentValue = parseInt(quantityСount.value);
+    if (currentValue > 1) {
+      currentValue -= 1;
+      quantityСount.value = currentValue;
+    }
+  });
 
   const cardRemove = cardElementBasket.querySelector('.card-remove');
   cardRemove.addEventListener('click', (evt) => {
