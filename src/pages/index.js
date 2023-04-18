@@ -13,7 +13,6 @@ const popupText = document.querySelector('.popup__text');
 const cart = document.querySelector('.cart');
 const cartInner = document.querySelector('.cart-inner');
 const close = document.querySelector('.cart-info__close');
-// const clossedBasket = document.querySelector('.clossed')
 
 cart.addEventListener('click', () => {
   cartInner.classList.add('cart-inner__opened');

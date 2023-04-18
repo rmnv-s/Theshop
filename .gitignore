@@ -9,4 +9,5 @@ Thumbs.db
 .nova/
 
 build/
+dist/
 node_modules/
