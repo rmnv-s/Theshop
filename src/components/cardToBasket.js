@@ -1,5 +1,10 @@
 import { cartArray, totalCount, cartCount } from '../utils/constants.js';
-import { calculateTotalPrice, updateTotalPrice } from './price.js';
+import {
+  calculateTotalPrice,
+  updateTotalPrice,
+  incrementNewTotalPrice,
+  decrementTotalPrice,
+} from './price.js';
 export function cardToBasket(item) {
   const cardTemplateBasket = document.querySelector('.product-template').content;
   const cardElementBasket = cardTemplateBasket.querySelector('.product').cloneNode(true);
@@ -12,21 +17,35 @@ export function cardToBasket(item) {
   const quantityPlus = cardElementBasket.querySelector('.quantity__count-plus');
   const quantityMinus = cardElementBasket.querySelector('.quantity__count-minus');
   quantityPlus.addEventListener('click', () => {
-    let currentValue = parseInt(quantityСount.value);
+    let currentValue = parseInt(quantityСount.value, 10);
     currentValue += 1;
     quantityСount.value = currentValue;
+    item.quantity++;
+    // пересчитываем тотал и обновляем его значение
+    const currentTotal = parseInt(totalCount.textContent, 10);
+    const newTotal = incrementNewTotalPrice(currentTotal, item.price);
+    totalCount.textContent = newTotal;
+    cartArray.push(item);
+    console.log(cartArray);
   });
   quantityMinus.addEventListener('click', () => {
-    let currentValue = parseInt(quantityСount.value);
+    let currentValue = parseInt(quantityСount.value, 10);
     if (currentValue > 1) {
       currentValue -= 1;
       quantityСount.value = currentValue;
+      // вычитаем цену товара из текущего тотала и обновляем его значение
+      const totalPrice = decrementTotalPrice(parseInt(totalCount.textContent, 10), item.price);
+      totalCount.textContent = totalPrice;
+      cartArray.pop();
+      console.log(cartArray);
     }
   });
 
   const cardRemove = cardElementBasket.querySelector('.card-remove');
   cardRemove.addEventListener('click', (evt) => {
     evt.target.closest('.product').remove();
+
+    // ПРИ УДАЛЕНИИ НЕ ПРАВИЛЬНО ПЕРЕСЧИТЫВАЕТ КАУНТ, КОГДА ОДНОГО ТОВАРА НЕСКОЛЬКО ШТУК
     cartArray.forEach((el, i) => {
       if (el.id === item.id) {
         cartArray.splice(i, 1);
@@ -38,7 +57,6 @@ export function cardToBasket(item) {
 
   cartArray.push(item);
   const totalPrice = calculateTotalPrice(cartArray);
-
   totalCount.textContent = totalPrice;
 
   return cardElementBasket;
