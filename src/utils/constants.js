@@ -3,12 +3,12 @@ import m2Image from '../images/m-02.jpg';
 import m3Image from '../images/m-03.jpg';
 
 export const cardData = [
-  { id: 1, name: 'm – 01 digital', price: 4, link: m1Image },
-  { id: 2, name: 'm – 02 digital', price: 3, link: m2Image },
-  { id: 3, name: 'm – 03 digital', price: 8, link: m3Image },
-  { id: 4, name: 'm – 04 digital', price: 2, link: m2Image },
-  { id: 5, name: 'm – 05 digital', price: 5, link: m1Image },
-  { id: 6, name: 'm – 06 digital', price: 6, link: m3Image },
+  { id: 1, name: 'm – 01 digital', price: 4, link: m1Image, quantity: 1 },
+  { id: 2, name: 'm – 02 digital', price: 3, link: m2Image, quantity: 1 },
+  { id: 3, name: 'm – 03 digital', price: 8, link: m3Image, quantity: 1 },
+  { id: 4, name: 'm – 04 digital', price: 2, link: m2Image, quantity: 1 },
+  { id: 5, name: 'm – 05 digital', price: 5, link: m1Image, quantity: 1 },
+  { id: 6, name: 'm – 06 digital', price: 6, link: m3Image, quantity: 1 },
 ];
 
 /* CARDS */
