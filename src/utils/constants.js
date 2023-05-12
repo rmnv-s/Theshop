@@ -7,7 +7,7 @@ export const cardData = [
   { id: 2, name: 'm – 02 digital', price: 3, link: m2Image, quantity: 1 },
   { id: 3, name: 'm – 03 digital', price: 8, link: m3Image, quantity: 1 },
   { id: 4, name: 'm – 04 digital', price: 2, link: m2Image, quantity: 1 },
-  { id: 5, name: 'm – 05 digital', price: 5, link: m1Image, quantity: 1 },
+  { id: 5, name: 'm – 05 digital', price: 7, link: m1Image, quantity: 1 },
   { id: 6, name: 'm – 06 digital', price: 6, link: m3Image, quantity: 1 },
 ];
 
@@ -32,3 +32,4 @@ export const popupText = document.querySelector('.popup__text');
 
 /* CART ARRAY */
 export let cartArray = [];
+export let sum = 0;

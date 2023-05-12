@@ -1,11 +1,6 @@
 import { cartArray, totalCount, cartCount } from '../utils/constants.js';
-import {
-  calculateTotalPrice,
-  updateTotalPrice,
-  incrementNewTotalPrice,
-  decrementTotalPrice,
-} from './price.js';
-
+import { calculateTotalPrice, deleteCard } from './price.js';
+let sum = 0;
 export function cardToBasket(item) {
   const cardTemplateBasket = document.querySelector('.product-template').content;
   const cardElementBasket = cardTemplateBasket.querySelector('.product').cloneNode(true);
@@ -14,31 +9,45 @@ export function cardToBasket(item) {
   cardElementBasket.querySelector('.card-product__price').textContent = `$ ${item.price}.00`;
 
   const quantityCount = cardElementBasket.querySelector('.quantity__count-number');
-
   const quantityPlus = cardElementBasket.querySelector('.quantity__count-plus');
   const quantityMinus = cardElementBasket.querySelector('.quantity__count-minus');
 
-  // console.log(quantityCount.value);
+  quantityCount.addEventListener('input', () => {
+    const inputValue = quantityCount.value.trim();
+    const currentValue = inputValue === '' ? 0 : Number.parseInt(inputValue, 10);
+    //
+
+    if (inputValue !== '' && currentValue !== 0) {
+      const currentTotal = parseInt(totalCount.textContent, 10);
+      const newTotal = currentTotal - item.price * item.quantity + item.price * currentValue;
+      totalCount.textContent = newTotal;
+      item.quantity = currentValue;
+    } else {
+      if (inputValue === '') {
+        console.log('Input is empty');
+        // Handle empty input case
+      } else {
+        console.log('delete this');
+        // deleteCard(cartArray);
+      }
+    }
+
+    console.log(currentValue);
+  });
+
   quantityPlus.addEventListener('click', () => {
-    // let currentValue = Number.parseInt(quantityCount.value, 10);
     quantityCount.value++;
-    // Увеличиваем количество товара в объекте корзины
     item.quantity += 1;
     const currentTotal = Number.parseInt(totalCount.textContent, 10);
 
-    // Пересчитываем сумму только для измененного товара
-    const itemTotal = item.price * item.quantity;
-    console.log(itemTotal);
-
-    // Обновляем сумму визуально
     const newTotal = currentTotal + item.price;
     totalCount.textContent = newTotal;
   });
 
   quantityMinus.addEventListener('click', () => {
     const currentValue = Number.parseInt(quantityCount.value, 10);
-
-    if (currentValue < 1) {
+    if (currentValue <= 1) {
+      quantityCount.value--;
       quantityMinus.disabled = true;
       const product = quantityMinus.closest('.product');
       product.classList.add('remove');
@@ -46,10 +55,12 @@ export function cardToBasket(item) {
         product.remove();
 
         // Удаляем товар из корзины
+        // deleteCard(cartArray);
         const itemIndex = cartArray.findIndex((cartItem) => cartItem.id === item.id);
         if (itemIndex !== -1) {
           cartArray.splice(itemIndex, 1);
         }
+
         // Пересчитываем общую сумму корзины
         const totalPrice = calculateTotalPrice(cartArray);
         totalCount.textContent = totalPrice;
@@ -57,17 +68,12 @@ export function cardToBasket(item) {
       }, 1000);
     } else {
       quantityCount.value--;
-
-      // Уменьшаем количество товара в объекте корзины
       item.quantity -= 1;
-
-      // Пересчитываем сумму только для измененного товара
-      const itemTotal = item.price * item.quantity;
 
       // Обновляем сумму визуально
       const currentTotal = Number.parseInt(totalCount.textContent, 10);
-      const newTotal = currentTotal - item.price;
-      totalCount.textContent = newTotal;
+      // const newTotal = currentTotal - item.price;
+      totalCount.textContent = currentTotal - item.price;
     }
   });
 
@@ -81,7 +87,6 @@ export function cardToBasket(item) {
     let price = Number.parseInt(totalCount.textContent, 10);
     sum = price - a;
     totalCount.textContent = sum;
-    console.log('Сумма товара при удалении:', sum);
 
     cartArray.forEach((el, i) => {
       if (el.id === item.id) {
@@ -94,10 +99,7 @@ export function cardToBasket(item) {
   });
 
   cartArray.push(item);
-  const totalPrice = calculateTotalPrice(cartArray, totalPrice);
-  console.log('Переменная sum при добавлении', sum);
-  totalCount.textContent = totalPrice;
-  console.log('Тотал при добавлении карточки', totalPrice);
+  totalCount.textContent = calculateTotalPrice(cartArray);
 
   return cardElementBasket;
 }
