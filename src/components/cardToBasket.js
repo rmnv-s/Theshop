@@ -29,10 +29,25 @@ export function cardToBasket(item) {
       } else {
         console.log('delete this');
         // deleteCard(cartArray);
+        const product = quantityCount.closest('.product');
+        product.classList.add('remove');
+        setTimeout(() => {
+          product.remove();
+
+          // Удаляем товар из корзины
+          // deleteCard(cartArray);
+          const itemIndex = cartArray.findIndex((cartItem) => cartItem.id === item.id);
+          if (itemIndex !== -1) {
+            cartArray.splice(itemIndex, 1);
+          }
+
+          // Пересчитываем общую сумму корзины
+          const totalPrice = calculateTotalPrice(cartArray);
+          totalCount.textContent = totalPrice;
+          cartCount.textContent--;
+        }, 1000);
       }
     }
-
-    console.log(currentValue);
   });
 
   quantityPlus.addEventListener('click', () => {
