@@ -2,22 +2,23 @@ export function calculateTotalPrice(products) {
   const totalPrice = products.reduce((sum, product) => {
     return sum + product.price * product.quantity;
   }, 0);
+  // console.log(totalPrice);
   return totalPrice;
 }
 
-export function updateTotalPrice(items) {
-  items
-    .map((i) => i.price)
-    .reduce((a, b) => {
-      return a + b;
-    }, 0);
-}
-
-export function incrementNewTotalPrice(currentTotal, itemPrice) {
-  const newTotal = currentTotal + itemPrice;
-  return newTotal;
-}
-
-export function decrementTotalPrice(currentTotal, itemPrice) {
-  return currentTotal - itemPrice;
+export function deleteCard(cartArray, prod, item, totalCount, cartCount) {
+  const product = prod.closest('.product');
+  product.classList.add('remove');
+  setTimeout(() => {
+    product.remove();
+    // Удаляем товар из корзины
+    const itemIndex = cartArray.findIndex((cartItem) => cartItem.id === item.id);
+    if (itemIndex !== -1) {
+      cartArray.splice(itemIndex, 1);
+    }
+    // Пересчитываем общую сумму корзины
+    const totalPrice = calculateTotalPrice(cartArray);
+    totalCount.textContent = totalPrice;
+    cartCount.textContent--;
+  }, 1000);
 }
