@@ -27,25 +27,7 @@ export function cardToBasket(item) {
         console.log('Input is empty');
         // Handle empty input case
       } else {
-        console.log('delete this');
-        // deleteCard(cartArray);
-        const product = quantityCount.closest('.product');
-        product.classList.add('remove');
-        setTimeout(() => {
-          product.remove();
-
-          // Удаляем товар из корзины
-          // deleteCard(cartArray);
-          const itemIndex = cartArray.findIndex((cartItem) => cartItem.id === item.id);
-          if (itemIndex !== -1) {
-            cartArray.splice(itemIndex, 1);
-          }
-
-          // Пересчитываем общую сумму корзины
-          const totalPrice = calculateTotalPrice(cartArray);
-          totalCount.textContent = totalPrice;
-          cartCount.textContent--;
-        }, 1000);
+        deleteCard(cartArray, quantityCount, item, totalCount, cartCount);
       }
     }
   });
@@ -64,30 +46,14 @@ export function cardToBasket(item) {
     if (currentValue <= 1) {
       quantityCount.value--;
       quantityMinus.disabled = true;
-      const product = quantityMinus.closest('.product');
-      product.classList.add('remove');
-      setTimeout(() => {
-        product.remove();
 
-        // Удаляем товар из корзины
-        // deleteCard(cartArray);
-        const itemIndex = cartArray.findIndex((cartItem) => cartItem.id === item.id);
-        if (itemIndex !== -1) {
-          cartArray.splice(itemIndex, 1);
-        }
-
-        // Пересчитываем общую сумму корзины
-        const totalPrice = calculateTotalPrice(cartArray);
-        totalCount.textContent = totalPrice;
-        cartCount.textContent--;
-      }, 1000);
+      deleteCard(cartArray, quantityMinus, item, totalCount, cartCount);
     } else {
       quantityCount.value--;
       item.quantity -= 1;
 
       // Обновляем сумму визуально
       const currentTotal = Number.parseInt(totalCount.textContent, 10);
-      // const newTotal = currentTotal - item.price;
       totalCount.textContent = currentTotal - item.price;
     }
   });

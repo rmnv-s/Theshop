@@ -6,9 +6,19 @@ export function calculateTotalPrice(products) {
   return totalPrice;
 }
 
-export function deleteCard(cartArray) {
-  const itemIndex = cartArray.findIndex((cartItem) => cartItem.id === cartArray.id);
-  if (itemIndex !== -1) {
-    cartArray.splice(itemIndex, 1);
-  }
+export function deleteCard(cartArray, prod, item, totalCount, cartCount) {
+  const product = prod.closest('.product');
+  product.classList.add('remove');
+  setTimeout(() => {
+    product.remove();
+    // Удаляем товар из корзины
+    const itemIndex = cartArray.findIndex((cartItem) => cartItem.id === item.id);
+    if (itemIndex !== -1) {
+      cartArray.splice(itemIndex, 1);
+    }
+    // Пересчитываем общую сумму корзины
+    const totalPrice = calculateTotalPrice(cartArray);
+    totalCount.textContent = totalPrice;
+    cartCount.textContent--;
+  }, 1000);
 }
