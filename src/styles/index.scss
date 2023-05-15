@@ -4,6 +4,10 @@
 @import url(../vendor/normalize.scss);
 @import url(../vendor/fonts.scss);
 
+:root {
+  --primary-color: rgba(212, 255, 0, 1);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -42,7 +46,7 @@ html {
     color: #fff;
     text-transform: uppercase;
     &:hover {
-      color: rgba(212, 255, 0, 1);
+      color: var(--primary-color);
     }
   }
   &__heading {
@@ -73,7 +77,7 @@ html {
   &__close {
     @include main-font;
 
-    color: #ffe600;
+    color: var(--primary-color);
     cursor: pointer;
     position: absolute;
     padding: 1.4rem;
@@ -117,7 +121,7 @@ html {
   }
 
   .total-count {
-    color: rgba(212, 255, 0, 1);
+    color: var(--primary-color);
   }
 }
 
@@ -207,7 +211,7 @@ html {
       transition: all ease-in 0.3s;
 
       &:hover {
-        background-color: rgba(212, 255, 0, 1);
+        background-color: var(--primary-color);
       }
     }
   }
@@ -269,9 +273,13 @@ html {
   padding: 0;
   border-left: 1px solid #cccccc;
   border-right: 1px solid #cccccc;
-  color: rgba(212, 255, 0, 1);
-}
+  color: var(--primary-color);
 
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+}
 .quantity__count-plus {
   background-image: url(../images/count-plus.svg);
   font-size: 0;
@@ -280,6 +288,10 @@ html {
 .quantity__count-minus {
   background-image: url(../images/minus.svg);
   font-size: 0;
+}
+
+.input-is-empty {
+  background-color: #f04;
 }
 
 .card-remove {
@@ -329,7 +341,7 @@ html {
   right: -6rem;
 
   cursor: pointer;
-  background-color: yellowgreen;
+  background-color: var(--primary-color);
   padding: 10px;
   text-transform: uppercase;
 }

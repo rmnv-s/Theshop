@@ -32,4 +32,4 @@ export const popupText = document.querySelector('.popup__text');
 
 /* CART ARRAY */
 export let cartArray = [];
-export let sum = 0;
+// export let sum = 0;

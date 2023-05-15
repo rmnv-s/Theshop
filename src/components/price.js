@@ -16,6 +16,7 @@ export function deleteCard(cartArray, prod, item, totalCount, cartCount) {
     if (itemIndex !== -1) {
       cartArray.splice(itemIndex, 1);
     }
+    // console.log(itemIndex);
     // Пересчитываем общую сумму корзины
     const totalPrice = calculateTotalPrice(cartArray);
     totalCount.textContent = totalPrice;

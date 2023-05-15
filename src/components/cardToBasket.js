@@ -12,26 +12,34 @@ export function cardToBasket(item) {
   const quantityPlus = cardElementBasket.querySelector('.quantity__count-plus');
   const quantityMinus = cardElementBasket.querySelector('.quantity__count-minus');
 
+  const cardRemoveButton = cardElementBasket.querySelector('.card-remove');
+
   quantityCount.addEventListener('input', () => {
     const inputValue = quantityCount.value.trim();
     const currentValue = inputValue === '' ? 0 : Number.parseInt(inputValue, 10);
-    //
 
-    if (inputValue !== '' && currentValue !== 0) {
+    if (inputValue === '') {
+      console.log('Input is empty');
+      quantityCount.classList.add('input-is-empty');
+      // Обработка случая пустого ввода
+    } else if (!isNaN(currentValue) && Number.isInteger(currentValue) && currentValue > 0) {
       const currentTotal = parseInt(totalCount.textContent, 10);
-      const newTotal = currentTotal - item.price * item.quantity + item.price * currentValue;
-      totalCount.textContent = newTotal;
-      item.quantity = currentValue;
+
+      if (!isNaN(currentTotal)) {
+        const newTotal = currentTotal - item.price * item.quantity + item.price * currentValue;
+        totalCount.textContent = newTotal;
+        item.quantity = currentValue;
+      }
+
+      quantityCount.classList.remove('input-is-empty');
     } else {
-      if (inputValue === '') {
-        console.log('Input is empty');
-        // Handle empty input case
-      } else {
+      if (currentValue === 0) {
         deleteCard(cartArray, quantityCount, item, totalCount, cartCount);
+      } else {
+        quantityCount.value = item.quantity; // Восстанавливаем предыдущее значение в поле ввода
       }
     }
   });
-
   quantityPlus.addEventListener('click', () => {
     quantityCount.value++;
     item.quantity += 1;
@@ -58,8 +66,8 @@ export function cardToBasket(item) {
     }
   });
 
-  const cardRemove = cardElementBasket.querySelector('.card-remove');
-  cardRemove.addEventListener('click', (evt) => {
+  // const cardRemoveButton = cardElementBasket.querySelector('.card-remove');
+  cardRemoveButton.addEventListener('click', (evt) => {
     const inputValue = Number.parseInt(quantityCount.value, 10);
 
     evt.target.closest('.product').remove();
