@@ -42,7 +42,7 @@ html {
     color: #fff;
     text-transform: uppercase;
     &:hover {
-      color: rgba(212, 255, 0, 1);
+      color: $main-yellow;
     }
   }
   &__heading {
@@ -73,7 +73,7 @@ html {
   &__close {
     @include main-font;
 
-    color: #ffe600;
+    color: $main-yellow;
     cursor: pointer;
     position: absolute;
     padding: 1.4rem;
@@ -117,7 +117,7 @@ html {
   }
 
   .total-count {
-    color: rgba(212, 255, 0, 1);
+    color: $main-yellow;
   }
 }
 
@@ -177,6 +177,7 @@ html {
     width: 100%;
 
     &__img {
+      min-height: 37rem;
     }
 
     &__heding {
@@ -207,7 +208,7 @@ html {
       transition: all ease-in 0.3s;
 
       &:hover {
-        background-color: rgba(212, 255, 0, 1);
+        background-color: $main-yellow;
       }
     }
   }
@@ -269,7 +270,7 @@ html {
   padding: 0;
   border-left: 1px solid #cccccc;
   border-right: 1px solid #cccccc;
-  color: rgba(212, 255, 0, 1);
+  color: $main-yellow;
 }
 
 .quantity__count-plus {
@@ -329,7 +330,7 @@ html {
   right: -6rem;
 
   cursor: pointer;
-  background-color: yellowgreen;
+  background-color: $main-yellow;
   padding: 10px;
   text-transform: uppercase;
 }
@@ -368,4 +369,14 @@ html {
   bottom: 2rem;
   font-size: 18px;
   font-weight: 500;
+}
+
+.loader {
+  position: absolute;
+  font-size: 2rem;
+  z-index: 100;
+  color: $main-yellow;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
 }

@@ -1,7 +1,13 @@
-import { cartArray, cartCount, cardProduct, popup } from '../utils/constants.js';
+import {
+  cartArray,
+  cartCount,
+  cardProduct,
+  popup,
+} from '../utils/constants.js';
 import { cardToBasket } from './cardToBasket.js';
 import { openPopup } from './popup.js';
-export function getCardsToPage(item) {
+
+export async function getCardsToPage(item) {
   const cardTemplate = document.querySelector('.card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
@@ -9,8 +15,29 @@ export function getCardsToPage(item) {
   cardElement.querySelector('.card__price').textContent = `$ ${item.price}.00`;
 
   const cardPhoto = cardElement.querySelector('.card__img');
-  cardPhoto.src = item.link;
-  cardPhoto.alt = item.name;
+
+  // Создаем объект Image для предварительной загрузки изображения
+  const imgPreloader = new Image();
+
+  // Оборачиваем загрузку изображения в Promise, чтобы использовать await
+  await new Promise((resolve, reject) => {
+    // Устанавливаем обработчик события onload для изображения
+    imgPreloader.onload = () => {
+      // Когда изображение полностью загрузилось, устанавливаем его как src для элемента на карточке
+      cardPhoto.src = item.link;
+      cardPhoto.alt = item.name;
+      // Разрешаем промис после загрузки изображения
+      resolve();
+    };
+
+    // Обработка ошибок, если изображение не загрузится
+    imgPreloader.onerror = () => {
+      reject(new Error('Ошибка загрузки изображения'));
+    };
+
+    // Устанавливаем src для объекта Image, чтобы начать загрузку изображения
+    imgPreloader.src = item.link;
+  });
 
   const cardBtn = cardElement.querySelector('.card__btn');
   cardBtn.addEventListener('click', () => {
@@ -21,5 +48,6 @@ export function getCardsToPage(item) {
       cardProduct.append(cardToBasket(item));
     }
   });
+
   return cardElement;
 }
